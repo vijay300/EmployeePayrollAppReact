@@ -6,6 +6,9 @@ import logo from "../../assets/images/logo.png";
 import '../payrollform/PayrollForm.css';
 import { withRouter } from 'react-router-dom';
 import { useState } from "react";
+import EmployeeService from '../../services/EmployeeService';
+
+const service = new EmployeeService();
 
 const PayrollForm = (props) => {
 
@@ -60,42 +63,62 @@ const PayrollForm = (props) => {
     return formValue.departmentValue && formValue.departmentValue.includes(name);
   }
 
-  // const validData = async () => {
-  //   let isError = false;
-  //   let error = {
-  //     department: '',
-  //     name: '',
-  //     gender: '',
-  //     salary: '',
-  //     profileUrl: '',
-  //     startDate: ''
-  //   }
-  //   if (formValue.name.length < 1) {
-  //     error.name = 'name is required field'
-  //     isError = true;
-  //   }
-  //   if (formValue.gender.length < 1) {
-  //     error.gender = 'gender is required field'
-  //     isError = true;
-  //   }
-  //   if (formValue.salary.length < 1) {
-  //     error.salary = 'salary is required field'
-  //     isError = true;
-  //   }
-  //   if (formValue.profileUrl.length < 1) {
-  //     error.profileUrl = 'profileUrl is required field'
-  //     isError = true;
-  //   }
-  //   if (formValue.department.length < 1) {
-  //     error.department = 'department is required field'
-  //     isError = true;
-  //   }
-  //   await setForm({...formValue, error: error})
-  //   return isError;
-  // }
+  const validData = async () => {
+    let isError = false;
+    let error = {
+      department: '',
+      name: '',
+      gender: '',
+      salary: '',
+      profileUrl: '',
+      startDate: ''
+    }
+    if (formValue.name.length < 1) {
+      error.name = 'name is required field'
+      isError = true;
+    }
+    if (formValue.gender.length < 1) {
+      error.gender = 'gender is required field'
+      isError = true;
+    }
+    if (formValue.salary.length < 1) {
+      error.salary = 'salary is required field'
+      isError = true;
+    }
+    if (formValue.profileUrl.length < 1) {
+      error.profileUrl = 'profileUrl is required field'
+      isError = true;
+    }
+    if (formValue.department.length < 1) {
+      error.department = 'department is required field'
+      isError = true;
+    }
+    await setForm({...formValue, error: error})
+    return isError;
+  }
+
+  const save = async (event) => {
+    event.preventDefault();
+    let object = {
+      name: formValue.name,
+      salary: formValue.salary,
+      gender: formValue.gender,
+      startDate: formValue.day + " " + formValue.month + " " + formValue.year,
+      note: formValue.notes,
+      profilePic: formValue.profileUrl,
+      departments: formValue.departmentValue
+    }
+
+    service.employeeRegistration(object).then(data => {
+      console.log(data);
+    }).catch(err => {
+      console.log(err);
+    })
+    console.log(this.state);
+  }
 
   const reset = () => {
-    setForm({...inititalValue, id: formValue.id, isUpdate: formValue.isUpdatec});
+    setForm({...inititalValue, id: formValue.id, isUpdate: formValue.isUpdate});
   }
 
   return (
@@ -198,7 +221,7 @@ const PayrollForm = (props) => {
           <div className="button-content">
             <a routerLink="" className="resetButton button cancelButton">Cancel</a>
             <div className="submit-reset">
-              <button type="submit" className="button submitButton" id="submitButton">{formValue.isUpdate ? 'Update' : 'Submit'} </button>
+              <button type="submit" className="button submitButton" id="submitButton" onSubmit={save}>{formValue.isUpdate ? 'Update' : 'Submit'} </button>
               <button type="button" onClick={reset} className="resetButton button">Reset</button>
             </div>
           </div>
