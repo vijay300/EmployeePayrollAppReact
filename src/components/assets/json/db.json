@@ -1,0 +1,41 @@
+{
+  "employee": [
+    {
+      "_name": "mohit",
+      "_gender": "male",
+      "_department": [
+        "HR"
+      ],
+      "_salary": "30000",
+      "_startDate": "1 Jan 2020",
+      "_notes": "",
+      "id": 3,
+      "_profilePic": "../assets/profile-images/Ellipse -3.png"
+    },
+    {
+      "_name": "test",
+      "_gender": "male",
+      "_department": [
+        "HR"
+      ],
+      "_salary": "30000",
+      "_startDate": "1 Jan 2020",
+      "_notes": "",
+      "id": 4,
+      "_profilePic": "../assets/profile-images/Ellipse -3.png"
+    },
+    {
+      "_name": "Vijay",
+      "_profilePic": "../assets//profile-images/Ellipse -3.png",
+      "_gender": "male",
+      "_department": [
+        "HR",
+        "Sales"
+      ],
+      "_salary": "500000",
+      "_note": "",
+      "_startDate": "1 January 2021",
+      "id": 5
+    }
+  ]
+}
