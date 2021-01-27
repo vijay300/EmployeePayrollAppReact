@@ -5,7 +5,7 @@ import profile4 from "../../assets/profile-images/Ellipse -7.png";
 import logo from "../../assets/images/logo.png";
 import './PayrollForm.css';
 import { Link, withRouter } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EmployeeService from '../../services/EmployeeService';
 
 const service = new EmployeeService();
@@ -123,7 +123,19 @@ const PayrollForm = (props) => {
 
   const reset = () => {
     setForm({...inititalValue, id: formValue.id, isUpdate: formValue.isUpdate});
-}  
+  }  
+
+  useEffect (() => {
+    let empId = localStorage.getItem('id');
+    console.log(" employee id: ", empId);
+    formValue.isUpdate = true;
+    service.getEmployeeById(empId).then((data) => {
+
+        console.log(data.data.data);
+    }).catch(err => {
+      console.log(err)
+    })
+  })
 
   return (
     <div className="payroll-main">
@@ -267,7 +279,7 @@ const PayrollForm = (props) => {
           <div className="button-content">
             <Link to="" className="resetButton button cancelButton">Cancel</Link>
             <div className="submit-reset">
-              <button type="submit" className="button submitButton" id="submitButton" onClick={save}>{formValue.isUpdate ? 'Update' : 'Submit'} </button>
+              <button type="submit" className="button submitButton" id="submitButton" onClick={save}>Submit </button>
               <button type="button" onClick={reset} className="resetButton button">Reset</button>
             </div>
           </div>

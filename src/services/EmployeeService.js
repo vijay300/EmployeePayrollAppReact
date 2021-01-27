@@ -9,14 +9,18 @@ export default class EmployeeService {
     }
 
     getAllEmployeeData() {
-        return service.Get();
+        return service.Get('/');
     }
 
     deleteEmployeeData(data) {
         return service.Delete('/delete/' + data);
     }
 
-    updateEmployeeData(requestData) {
-        return service.Put('/update/1', requestData);
+    updateEmployeeData(id, requestData) {
+        return service.Put('/update/' + id, requestData);
+    }
+
+    getEmployeeById(id) {
+        return service.Get('/get/' + id);
     }
 }

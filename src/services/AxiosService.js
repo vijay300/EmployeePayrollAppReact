@@ -13,8 +13,8 @@ export default class AxiosService {
         })
     }
 
-    Get() {
-        return axios.get(baseUrl, {
+    Get(url) {
+        return axios.get(baseUrl + url, {
             headers: {
                 contentType: 'application/json'
             }

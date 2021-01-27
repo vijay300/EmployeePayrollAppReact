@@ -15,10 +15,15 @@ export default class HomePage extends React.Component {
   constructor() {
     super();
     this.state = {
-      employeeArray: []
+      employeeArray: [],
+      callUpdate: ''
     }
   }
   componentDidMount() {
+    this.getEmployeeData();
+  }
+
+  update = () => {
     this.getEmployeeData();
   }
 
@@ -56,7 +61,7 @@ export default class HomePage extends React.Component {
           <div className="table-main">
             <table id="table-diplay" className="table">
             <tbody>
-              <Display employeeArray={this.state.employeeArray} />
+              <Display employeeArray={this.state.employeeArray} callUpdate={this.update} />
             </tbody>
     </table>
           </div>
